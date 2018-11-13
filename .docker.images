@@ -1,0 +1,16 @@
+# Docker Registry
+DOCKER_REGISTRY=karolkaliszczak
+
+# Docker Images
+DOCKER_IMAGES_NGINX_NAME=financial-nginx
+DOCKER_IMAGES_NGINX_TAG=0.1.0
+
+DOCKER_IMAGES_PHPFPM_NAME=financial-phpfpm
+DOCKER_IMAGES_PHPFPM_TAG=0.1.0
+
+DOCKER_IMAGES_SHELL_NAME=financial-shell
+DOCKER_IMAGES_SHELL_TAG=0.0.1
+
+DOCKER_IMAGES_WEBSERVER_NAME=financial-webserver
+
+DOCKER_IMAGES_APPLICATION_NAME=financial-application

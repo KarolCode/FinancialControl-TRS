@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+  webserver:
+    build: docker/nginx
+
+  application:
+    build: docker/php-fpm
+
+  shell:
+    build: docker/shell

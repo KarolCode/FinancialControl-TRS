@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  database:
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  redis-commander:
+    image: rediscommander/redis-commander
+    environment:
+      REDIS_HOSTS: 'Redis:redis'
+      VIRTUAL_HOST: redis.${BASE_DOMAIN}
+      VIRTUAL_PORT: 8081
+    networks:
+      - default
+      - proxy
+
+  adminer:
+    image: adminer
+    environment:
+      VIRTUAL_HOST: adminer.${BASE_DOMAIN}
+      VIRTUAL_PORT: 8080
+    networks:
+      - default
+      - proxy
+
+  pgadmin:
+    image: fenglc/pgadmin4
+    volumes:
+      - pgadmin:/var/lib/pgadmin4/data
+    environment:
+      VIRTUAL_HOST: pgadmin.${BASE_DOMAIN}
+      VIRTUAL_PORT: 5050
+    networks:
+      - default
+      - proxy
+
+volumes:
+  pgadmin:
+  database:

@@ -1,8 +1,19 @@
 # APP
-/src/storage
-/src/vendor
+/src/storage/logs
+/src/storage/
+/src/vendor/
 /src/.env
 
 # Editors
-nbproject/
-/.idea
+/nbproject/
+/.idea/
+
+# Projekt
+.env
+
+# Tests
+/tests/_support/_generated
+
+#Building on CICD
+/artifacts
+/Dockerfile

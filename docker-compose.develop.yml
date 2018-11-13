@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  redis:
+    image: redis:3.2
+
+  database:
+    image: postgres:10.3
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  shell:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGES_SHELL_NAME}:${DOCKER_IMAGES_SHELL_TAG}
+    env_file: .env
+    volumes:
+      - ./src:/app
+      - composer-cache:/root/.composer
+
+  mailhog:
+    image: mailhog/mailhog
+    environment:
+      MH_MONGO_URI: 'mailhog_db:27017'
+      MH_STORAGE: mongodb
+      VIRTUAL_HOST: mailhog.${BASE_DOMAIN}
+      VIRTUAL_PORT: 8025
+    networks:
+      - default
+      - proxy
+
+  mailhog_db:
+    image: mongo:3.2
+
+volumes:
+  composer-cache:
+  database:

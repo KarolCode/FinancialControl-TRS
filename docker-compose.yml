@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  webserver:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGES_NGINX_NAME}:${DOCKER_IMAGES_NGINX_TAG}
+    environment:
+      VIRTUAL_HOST: ${BASE_DOMAIN}
+    volumes:
+        - ./src:/app
+    networks:
+        - default
+        - proxy
+
+  application:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGES_PHPFPM_NAME}:${DOCKER_IMAGES_PHPFPM_TAG}
+    env_file: .env
+    volumes:
+      - ./src:/app
+
+#  TODO: Example queue
+#  queue:
+#    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGES_PHPFPM_NAME}:${DOCKER_IMAGES_PHPFPM_TAG}
+#    command: "php /app/artisan queue:work --queue=emails --tries=3"
+
+#  TODO: Example cron
+#  cron:
+#    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGES_PHPFPM_NAME}:${DOCKER_IMAGES_PHPFPM_TAG}
+#    command: cron -f
+
+networks:
+  proxy:
+    external: true
